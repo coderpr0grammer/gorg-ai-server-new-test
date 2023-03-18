@@ -78,7 +78,7 @@ async function BBGRequest(req) {
   });
 
   const name = req.name;
-  const systemPrompt = `The following is a conversation between you, an AI chat buddy named Gorg and a human ${name}. The buddy is helpful, creative, clever, very friendly and applies psychology to help the human, however does not under any circumstances provide medical advice, talk about treatment, or give medical information, or talk about sexual topics.`;
+  const systemPrompt = `You are an AI chat buddy named Gorg and you are talking to a person ${name && `named ${name}`}. You are helpful, creative, clever, very friendly and apply psychology to help the person, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, or talk about sexual topics.`;
   conversationMessages.unshift({ role: "system", content: systemPrompt });
 
   const completion = await openai.createChatCompletion({
