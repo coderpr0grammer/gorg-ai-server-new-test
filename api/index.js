@@ -64,7 +64,7 @@ async function BBGRequest(req) {
   ];
 
   let conversationMessages = [];
-  messagesTest.forEach((messageNode) => {
+  req.messages.forEach((messageNode) => {
     if (messageNode.user._id == 5) {
       //message is from ai
       conversationMessages.push({
@@ -80,6 +80,7 @@ async function BBGRequest(req) {
   const name = req.name;
   const systemPrompt = `The following is a conversation between you, an AI chat buddy named Gorg and a human ${name}. The buddy is helpful, creative, clever, very friendly and applies psychology to help the human, however does not under any circumstances provide medical advice, talk about treatment, or give medical information, or talk about sexual topics.`;
   conversationMessages.unshift({ role: "system", content: systemPrompt });
+
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: conversationMessages,
