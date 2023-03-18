@@ -53,16 +53,6 @@ async function freeRequest(req) {
         "_id": 1,
       },
     },
-     {
-      "_id": "lpkzltc37xklfefyvk0",
-      "createdAt": '2023-03-18T20:48:48.960Z',
-      "text": "Daniel: Hi Gorg! Hi Daniel! Nice to meet you. What would you like to chat about?",
-      "user":  {
-        "_id": 5,
-        "avatar": 9,
-        "name": "Axie",
-      },
-    },
   ]
 
   messagesTest.forEach((messageNode) => {
