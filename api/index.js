@@ -55,7 +55,7 @@ async function freeRequest(req) {
     },
   ]
 
-  messagesTest.forEach((messageNode) => {
+  req.messages.forEach((messageNode) => {
     if (messageNode.user._id == 5) {
       //message is from ai
       conversationBody += "\nGorg:";
