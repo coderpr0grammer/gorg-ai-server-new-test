@@ -34,7 +34,38 @@ async function freeRequest(req) {
   
   let conversationBody = "";
 
-  req.messages.forEach((messageNode) => {
+  const messagesTest = [
+     {
+      "_id": 1,
+      "createdAt": '2023-03-18T20:48:42.322Z',
+      "text": "Hey Daniel! My name's Gorg! I'm your personal chat buddy, how are you?",
+      "user":  {
+        "_id": 5,
+        "avatar": 8,
+        "name": "Gorg",
+      },
+    },
+     {
+      "_id": "4e061363-f6c0-4893-88b7-5e43e2c5c705",
+      "createdAt": '2023-03-18T20:48:47.392Z',
+      "text": "Hey gorg",
+      "user":  {
+        "_id": 1,
+      },
+    },
+     {
+      "_id": "lpkzltc37xklfefyvk0",
+      "createdAt": '2023-03-18T20:48:48.960Z',
+      "text": "Daniel: Hi Gorg! Hi Daniel! Nice to meet you. What would you like to chat about?",
+      "user":  {
+        "_id": 5,
+        "avatar": 9,
+        "name": "Axie",
+      },
+    },
+  ]
+
+  messagesTest.forEach((messageNode) => {
     if (messageNode.user._id == 5) {
       //message is from ai
       conversationBody += "\nGorg:";
