@@ -63,7 +63,10 @@ async function BBGRequest(req) {
     },
   ];
 
-  let conversationMessages = [];
+  const systemPrompt = `You are an AI chat buddy named Gorg and you are talking to me ${name && `named ${name}`}. You are helpful, creative, clever, very friendly and apply psychology to help me, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, or talk about sexual topics.`;
+
+
+  let conversationMessages = [{"role": "user", content: systemPrompt}];
   req.messages.forEach((messageNode, index) => {
     if (messageNode.user._id == 5) {
       //message is from ai
@@ -74,12 +77,11 @@ async function BBGRequest(req) {
     } else {
       //message is from user
       
-      conversationMessages.push({ role: "user", content: index == 1 ? `You are an AI chat buddy named Gorg and you are talking to a person ${name && `named ${name}`}. You are helpful, creative, clever, very friendly and apply psychology to help the person, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, or talk about sexual topics. ${messageNode.text}` : messageNode.text });
+      conversationMessages.push({ role: "user", content: messageNode.text} );
     }
   });
 
   const name = req.name;
-  const systemPrompt = `You are an AI chat buddy named Gorg and you are talking to a person ${name && `named ${name}`}. You are helpful, creative, clever, very friendly and apply psychology to help the person, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, or talk about sexual topics.`;
   conversationMessages.unshift({ role: "system", content: systemPrompt });
 
   const completion = await openai.createChatCompletion({
