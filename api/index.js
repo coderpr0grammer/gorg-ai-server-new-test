@@ -64,7 +64,7 @@ async function BBGRequest(req) {
   ];
 
   let conversationMessages = [];
-  req.messages.forEach((messageNode) => {
+  messagesTest.forEach((messageNode) => {
     if (messageNode.user._id == 5) {
       //message is from ai
       conversationMessages.push({
