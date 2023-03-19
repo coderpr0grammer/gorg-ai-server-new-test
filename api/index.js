@@ -103,16 +103,16 @@ app.post("/api", (req, res) => {
   console.log(req.body);
   let output = null;
   // res.send("hi") // let output = request().then((result) => console.log(result))
-  if (req.body.hasBBG) {
-    BBGRequest(req.body)
-      .then((result) => {
-        res.json(result);
-      })
-      .then((data) => {
-        output = data;
-        console.log(data);
-      });
-  } else {
+//   if (req.body.hasBBG) {
+//     BBGRequest(req.body)
+//       .then((result) => {
+//         res.json(result);
+//       })
+//       .then((data) => {
+//         output = data;
+//         console.log(data);
+//       });
+//   } else {
     freeRequest(req.body)
       .then((result) => {
         res.json(result);
@@ -121,7 +121,7 @@ app.post("/api", (req, res) => {
         output = data;
         console.log(data);
       });
-  }
+//   }
 });
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
