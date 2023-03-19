@@ -113,7 +113,14 @@ app.post("/api", (req, res) => {
         console.log(data);
       });
   } else {
-    freeRequest(req.body)
+    let totalWords = 0;
+    req.body.messages.forEach((item, index) => {
+      totalWords += item.text.split(" ").length;
+    })
+    if (totalWords >= 200) {
+      res.json({ result: 'sorry, you\'ve surpassed the limit of 200 words' })
+    } else {
+      freeRequest(req.body)
       .then((result) => {
         res.json(result);
       })
@@ -121,6 +128,8 @@ app.post("/api", (req, res) => {
         output = data;
         console.log(data);
       });
+    }
+    
   }
 });
 app.listen(port, () => {
