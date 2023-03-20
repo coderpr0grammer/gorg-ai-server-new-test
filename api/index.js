@@ -118,7 +118,7 @@ app.post("/api", (req, res) => {
       totalWords += item.text.split(" ").length;
     })
     if (totalWords >= 200) {
-      res.json({ result: 'sorry, you\'ve surpassed the limit of 200 words' })
+      res.json({ result: `Oops! Sorry ${req.body.name ? req.body.name : 'bud'}, this conversation is longer than 200 words so sadly I can't keep talking. You can upgrade to BBG to continue talking though!` })
     } else {
       freeRequest(req.body)
       .then((result) => {
