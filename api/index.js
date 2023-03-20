@@ -89,7 +89,20 @@ async function BBGRequest(req) {
 }
 
 app.get("/api", (req, res) => {
-  request(req.query.prompt)
+  BBGRequest([
+    {
+      _id: 1,
+      createdAt: "2023-03-18T20:48:42.322Z",
+      text: "Hey Daniel! My name's Gorg! I'm your personal chat buddy, how are you?",
+      user: { _id: 5, avatar: 8, name: "Gorg" },
+    },
+    {
+      _id: "4e061363-f6c0-4893-88b7-5e43e2c5c705",
+      createdAt: "2023-03-18T20:48:47.392Z",
+      text: "Hey gorg",
+      user: { _id: 1 },
+    },
+  ])
     .then((result) => {
       res.json(result);
     })
