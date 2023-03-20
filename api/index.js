@@ -48,7 +48,7 @@ async function freeRequest(req) {
 }
 
 async function BBGRequest(req) {
-  return { result: `Uh oh! Sorry ${req.name.length > 0 ? req.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` };
+  return { result: `Uh oh! Sorry bud, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` };
 
   const messagesTest = [
     {
