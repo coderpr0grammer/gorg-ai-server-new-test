@@ -48,8 +48,6 @@ async function freeRequest(req) {
 }
 
 async function BBGRequest(req) {
-  return { result: `Uh oh! Sorry bud, our conversation is longer than 200 words so sadly I can't keep talking for today :( You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` };
-
   const messagesTest = [
     {
       _id: 1,
@@ -80,13 +78,14 @@ async function BBGRequest(req) {
   });
 
   const name = req.name;
-  const systemPrompt = `You are an AI chat buddy named Gorg and you are talking to a person ${name.length > 0 && `named ${name}`} in a cool, informal tone. For example, instead of ask 'how may i assist you?' ask 'how can i help you out?'. You are helpful, creative, clever, very friendly and apply psychology to help the person, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, or talk about sexual topics.`;
+  const systemPrompt = `You are an AI chat buddy named Gorg and you are talking to a person ${name.length > 0 ? `named ${name}` : 'bud'} in a cool, informal tone. For example, instead of ask 'how may i assist you?' ask 'how can i help you out?'. You are helpful, creative, clever, very friendly and apply psychology to help the person, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, or talk about sexual topics.`;
   conversationMessages.unshift({ role: "system", content: systemPrompt });
 
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: conversationMessages,
   });
+  return { result: completion.data.choices[0].message.content };
 }
 
 app.get("/api", (req, res) => {
@@ -120,6 +119,9 @@ app.post("/api", (req, res) => {
   // res.send("hi") // let output = request().then((result) => console.log(result))
   if (req.body.hasBBG) {
     BBGRequest(req.body)
+      .then((result) => {
+        console.log(result)
+      })
       .then((data) => {
         output = data;
         console.log(data);
