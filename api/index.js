@@ -123,6 +123,7 @@ app.post("/api", (req, res) => {
       .then((data) => {
         output = data;
         console.log(data);
+        res.json(data)
       });
   } else {
     let totalWords = 0;
