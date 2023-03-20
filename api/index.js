@@ -85,7 +85,7 @@ async function BBGRequest(req) {
     model: "gpt-3.5-turbo",
     messages: conversationMessages,
   });
-  return { result: completion.data.choices[0].message.content };
+  return { result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` };
 }
 
 app.get("/api", (req, res) => {
