@@ -85,7 +85,7 @@ async function BBGRequest(req) {
     model: "gpt-3.5-turbo",
     messages: conversationMessages,
   });
-  return { result: completion.data.choices[0].message.content, "prompt": conversationMessages };
+  return { result: completion.data.choices[0].message.content };
 }
 
 app.get("/api", (req, res) => {
