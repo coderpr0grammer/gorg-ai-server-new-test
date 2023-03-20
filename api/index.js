@@ -118,7 +118,7 @@ app.post("/api", (req, res) => {
       totalWords += item.text.split(" ").length;
     })
     if (totalWords >= 200) {
-      res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today :(. You can upgrade to BBG (Big Brain Gorg) to continue talking though!` })
+      res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` })
     } else {
       freeRequest(req.body)
       .then((result) => {
