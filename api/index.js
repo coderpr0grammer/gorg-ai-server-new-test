@@ -80,7 +80,6 @@ async function BBGRequest(req) {
   const name = req.name;
   const systemPrompt = `You are an AI chat buddy named Gorg and you are talking to a person ${name && `named ${name}`}. You are helpful, creative, clever, very friendly and apply psychology to help the person, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, or talk about sexual topics.`;
   conversationMessages.unshift({ role: "system", content: systemPrompt });
-  conversationMessages[2].content = systemPrompt + conversationMessages[1].content;
 
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
