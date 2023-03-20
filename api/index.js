@@ -48,6 +48,8 @@ async function freeRequest(req) {
 }
 
 async function BBGRequest(req) {
+  return { result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` };
+
   const messagesTest = [
     {
       _id: 1,
@@ -85,7 +87,6 @@ async function BBGRequest(req) {
     model: "gpt-3.5-turbo",
     messages: conversationMessages,
   });
-  return { result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` };
 }
 
 app.get("/api", (req, res) => {
