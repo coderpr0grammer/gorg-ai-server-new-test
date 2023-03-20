@@ -118,24 +118,7 @@ app.post("/api", (req, res) => {
   let output = null;
   // res.send("hi") // let output = request().then((result) => console.log(result))
   if (req.body.hasBBG) {
-    BBGRequest({'messages': [
-      {
-        _id: 1,
-        createdAt: "2023-03-18T20:48:42.322Z",
-        text: "Hey Daniel! My name's Gorg! I'm your personal chat buddy, how are you?",
-        user: { _id: 5, avatar: 8, name: "Gorg" },
-      },
-      {
-        _id: "4e061363-f6c0-4893-88b7-5e43e2c5c705",
-        createdAt: "2023-03-18T20:48:47.392Z",
-        text: "Hey gorg",
-        user: { _id: 1 },
-      },
-    ], 'name': 'Daniel' })
-      .then((result) => {
-        console.log(result)
-        res.json(result);
-      })
+    BBGRequest(req.body)
       .then((data) => {
         output = data;
         console.log(data);
