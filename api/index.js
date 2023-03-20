@@ -104,6 +104,7 @@ app.get("/api", (req, res) => {
     },
   ], 'name': 'Daniel' })
     .then((result) => {
+      console.log(result)
       res.json(result);
     })
     .then((data) => {
