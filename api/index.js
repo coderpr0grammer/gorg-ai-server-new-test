@@ -89,7 +89,7 @@ async function BBGRequest(req) {
 }
 
 app.get("/api", (req, res) => {
-  BBGRequest([
+  BBGRequest({'messages': [
     {
       _id: 1,
       createdAt: "2023-03-18T20:48:42.322Z",
@@ -102,7 +102,7 @@ app.get("/api", (req, res) => {
       text: "Hey gorg",
       user: { _id: 1 },
     },
-  ])
+  ], 'name': 'Daniel' })
     .then((result) => {
       res.json(result);
     })
