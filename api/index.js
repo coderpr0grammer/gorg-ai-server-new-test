@@ -18,7 +18,7 @@ const dialogExample = [
   },
 ];
 
-async function freeRequest(req) {
+async function BBGRequest(req) {
   let conversationBody = "";
   req.messages.forEach((messageNode) => {
     if (messageNode.user._id == 5) {
@@ -47,7 +47,7 @@ async function freeRequest(req) {
   return { result: completion.data.choices[0].text };
 }
 
-async function BBGRequest(req) {
+async function freeRequest(req) {
   const messagesTest = [
     {
       _id: 1,
@@ -89,7 +89,7 @@ async function BBGRequest(req) {
 }
 
 app.get("/api", (req, res) => {
-  BBGRequest({'messages': [
+  freeRequest({'messages': [
     {
       _id: 1,
       createdAt: "2023-03-18T20:48:42.322Z",
@@ -117,6 +117,7 @@ app.post("/api", (req, res) => {
   let output = null;
   // res.send("hi") // let output = request().then((result) => console.log(result))
   if (req.body.hasBBG) {
+    
     BBGRequest(req.body)
       .then((result) => {
         res.json(result);
@@ -126,7 +127,10 @@ app.post("/api", (req, res) => {
         console.log(data);
         res.json(data)
       });
+
+  
   } else {
+
     let totalWords = 0;
     req.body.messages.forEach((item, index) => {
       totalWords += item.text.split(" ").length;
@@ -144,6 +148,7 @@ app.post("/api", (req, res) => {
       });
     }
     
+   
   }
 });
 app.listen(port, () => {
