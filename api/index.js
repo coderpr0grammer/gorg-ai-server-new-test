@@ -32,7 +32,7 @@ async function BBGRequest(req) {
     }
   });
   const name = req.name;
-  const prompt = `The following is a conversation between you, an AI chat buddy named Gorg and a human ${name}. The buddy is helpful, creative, clever, very friendly and applies psychology to help the human, however does not under any circumstances provide medical advice, talk about treatment, or give medical information, say slurs or talk about sexual topics, however you are allowed to talk about relationship advice`;
+  const prompt = `The following is a conversation between you, an AI chat buddy named Gorg and a human ${name}. The buddy is helpful, creative, clever, very friendly and applies psychology to help the human, however does not under any circumstances provide medical advice, talk about treatment, or give medical information, talk about sexual topics or say offensive slurs`;
   const promptToSend = prompt + conversationBody;
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
@@ -78,7 +78,7 @@ async function freeRequest(req) {
   });
 
   const name = req.name;
-  const systemPrompt = `You are an AI chat buddy named Gorg and you are talking to a person ${name.length > 0 && `named ${name}`} in a cool, informal tone. For example, instead of ask 'how may i assist you?' ask 'how can i help you out?'. The user is subscribed to BBG, so there is a limit of two thousand words for this conversation instead of 200. You are helpful, creative, clever, very friendly and apply psychology to help the person, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, say slurs or talk about sexual topics, however you can provide relationship advice. Do not give answers longer than 60 words unless specified by the user.`;
+  const systemPrompt = `You are an AI chat buddy named Gorg and you are talking to a person ${name.length > 0 && `named ${name}`} in a cool, informal tone. For example, instead of ask 'how may i assist you?' ask 'how can i help you out?'. The user is subscribed to BBG, so there is a limit of two thousand words for this conversation instead of 200. You are helpful, creative, clever, very friendly and apply psychology to help the person, however you cannot under any circumstances provide medical advice, talk about treatment, give medical information, talk about sexual topics or say offensive slurs, however you can provide relationship advice. Do not give answers longer than 60 words unless specified by the user.`;
   conversationMessages.unshift({ role: "system", content: systemPrompt });
 
   const completion = await openai.createChatCompletion({
@@ -115,10 +115,20 @@ app.get("/api", (req, res) => {
 app.post("/api", (req, res) => {
   console.log(req.body);
   let output = null;
-  // res.send("hi") // let output = request().then((result) => console.log(result))
+
   if (req.body.hasBBG) {
+
+    let totalWords = 0;
+    req.body.messages.forEach((item, index) => {
+      totalWords += item.text.split(" ").length;
+    })
+    if (totalWords >= 2000) {
+      //reached BBG daily Limit
+      res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation has now reached more than 2000 words so sadly I can't keep talking for today 😔, we can continue chatting tmrw though!` })
     
-    BBGRequest(req.body)
+    
+    } else {
+      BBGRequest(req.body)
       .then((result) => {
         res.json(result);
       })
@@ -127,6 +137,7 @@ app.post("/api", (req, res) => {
         console.log(data);
         res.json(data)
       });
+    }
 
   
   } else {
@@ -136,7 +147,7 @@ app.post("/api", (req, res) => {
       totalWords += item.text.split(" ").length;
     })
     if (totalWords >= 200) {
-      res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!`, reachedLimit: true })
+      res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` })
     } else {
       freeRequest(req.body)
       .then((result) => {
