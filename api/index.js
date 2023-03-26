@@ -128,7 +128,7 @@ app.post("/api", (req, res) => {
     
     
     } else {
-      BBGRequest(req.body)
+      freeRequest(req.body)
       .then((result) => {
         res.json(result);
       })
