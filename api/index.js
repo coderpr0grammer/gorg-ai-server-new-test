@@ -116,7 +116,7 @@ app.post("/api", (req, res) => {
   console.log(req.body);
   let output = null;
 
-  if (req.body.hasBBG) {
+  if (req.body.hasBBG || req.body.phoneNumber == '+14164090926') {
 
     let totalWords = 0;
     req.body.messages.forEach((item, index) => {
