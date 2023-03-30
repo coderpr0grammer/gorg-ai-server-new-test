@@ -122,7 +122,7 @@ app.post("/api", (req, res) => {
     req.body.messages.forEach((item, index) => {
       totalWords += item.text.split(" ").length;
     })
-    if (totalWords >= 2000) {
+    if (totalWords >= 3000) {
       //reached BBG daily Limit
       res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation has now reached more than 2000 words so sadly I can't keep talking for today 😔, we can continue chatting tmrw though!` })
     
@@ -146,8 +146,8 @@ app.post("/api", (req, res) => {
     req.body.messages.forEach((item, index) => {
       totalWords += item.text.split(" ").length;
     })
-    if (totalWords >= 200) {
-      res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 200 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` })
+    if (totalWords >= 300) {
+      res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 300 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` })
     } else {
       freeRequest(req.body)
       .then((result) => {
