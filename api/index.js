@@ -47,7 +47,7 @@ async function BBGRequest(req) {
   return { result: completion.data.choices[0].text };
 }
 
-async function request(req, max_tokens = 300) {
+async function request(req, max_tokens) {
   const messagesTest = [
     {
       _id: 1,
