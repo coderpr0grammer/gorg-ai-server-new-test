@@ -84,7 +84,6 @@ async function request(req, max_tokens) {
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: conversationMessages,
-    max_tokens: max_tokens
   });
 
   return { result: completion.data.choices[0].message.content };
