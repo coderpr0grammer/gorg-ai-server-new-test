@@ -47,7 +47,7 @@ async function BBGRequest(req) {
   return { result: completion.data.choices[0].text };
 }
 
-async function freeRequest(req) {
+async function request(req, max_tokens = 300) {
   const messagesTest = [
     {
       _id: 1,
@@ -84,7 +84,9 @@ async function freeRequest(req) {
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: conversationMessages,
+    max_tokens: max_tokens
   });
+
   return { result: completion.data.choices[0].message.content };
 }
 
@@ -128,7 +130,7 @@ app.post("/api", (req, res) => {
     
     
     } else {
-      freeRequest(req.body)
+      freeRequest(req.body, 500)
       .then((result) => {
         res.json(result);
       })
@@ -149,7 +151,7 @@ app.post("/api", (req, res) => {
     if (totalWords >= 300) {
       res.json({ result: `Uh oh! Sorry ${req.body.name ? req.body.name : 'bud'}, our conversation is longer than 300 words so sadly I can't keep talking for today 😔 You can upgrade to BBG (Big Brain Gorg) to continue our conversation though!` })
     } else {
-      freeRequest(req.body)
+      freeRequest(req.body, 300)
       .then((result) => {
         res.json(result);
       })
