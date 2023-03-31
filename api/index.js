@@ -115,6 +115,7 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/api", (req, res) => {
+  throw new Error('Error getting response')
   console.log(req.body);
   let output = null;
 
